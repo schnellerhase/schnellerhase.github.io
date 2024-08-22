@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://schnellerhase.github.io/'
 languageCode = 'en-us'
 title = 'schnellerhase'
 theme = 'hermit-v2'
