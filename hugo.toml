@@ -25,7 +25,7 @@ theme = "hermit-v2"
 languageCode = "en-us"
 
 title = 'schnellerhase'
-# enableGitInfo = true
+enableGitInfo = true
 
 pygmentsCodefences  = true
 pygmentsUseClasses  = true
