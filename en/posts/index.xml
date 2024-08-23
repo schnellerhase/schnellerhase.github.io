@@ -1,6 +1,33 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h1 id="google-summer-of-code-2024">Google Summer of Code 2024</h1>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h2 id="intro">Intro</h2>
 <p>Coming soon&hellip;</p>
-<h1 id="general-code-contributions">General Code Contributions</h1>
+<h2 id="geometric-multigrid-and-an-application-to-gsoc">Geometric Multigrid and an Application to GSOC</h2>
+<p>Coming soon&hellip;</p>
+<h2 id="implementation-decisions">Implementation decisions</h2>
+<p>Coming soon&hellip;</p>
+<ul>
+<li>no implicit treatment -&gt; PETSc DM /firedrake</li>
+<li>explicit handling of operations -&gt; performance</li>
+<li>loss of big picture: p-multigrid, domain decomposition</li>
+<li>decision on strictly refinement inclusions</li>
+<li>non matching meshes interpolation -&gt; duality problem</li>
+</ul>
+<h2 id="an-interval-refinement-in-dolfinx">An Interval Refinement in DOLFINx</h2>
+<p>Coming soon&hellip;</p>
+<ul>
+<li>febug for visualization</li>
+<li>A story on asserts in python and cpp module</li>
+<li>unifiying refinement interface</li>
+<li>optionals and python export</li>
+</ul>
+<h2 id="the-transfer-matrix">The Transfer Matrix</h2>
+<p>Coming soon&hellip;</p>
+<ul>
+<li>parallization and ghost nodes</li>
+<li>graph partitioning</li>
+</ul>
+<h2 id="geometric-twogrid-example">Geometric Twogrid Example</h2>
+<p>Coming soon&hellip;</p>
+<h2 id="general-code-contributions">General Code Contributions</h2>
 <p>While the main project focused on the implementation of a geometric multigrid a lot of incidental and supportive changes where contributed to different repositories as well.
 Split across multiple repositories, we want to shortly outline the highlights of these in chronological order.</p>
 <h3 id="dolfinx---introduce-aliasing-for-mdspan-closedhttpsgithubcomfenicsdolfinxpull3116">DOLFINx - Introduce aliasing for mdspan <a href="https://github.com/FEniCS/dolfinx/pull/3116">(Closed)</a></h3>
