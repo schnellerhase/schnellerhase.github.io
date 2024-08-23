@@ -87,7 +87,7 @@ expiryDate = ["expiryDate"]
   #homeSubtitle = "CHANGE ME HOME SUBTITLE"
   footerCopyright = "CC BY-NC-SA 4.0"
   # bgImg = ""
-  # gitUrl = "https://github.com/1bl4z3r/hermit-V2/tree/staging"
+  gitUrl = "https://github.com/schnellerhase/schnellerhase.github.io"
 
   justifyContent = false
 
