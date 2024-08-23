@@ -33,7 +33,7 @@ pygmentsUseClasses  = true
 
 rssLimit = 10
 
-copyright = "CHANGE ME"
+copyright = "CC BY-NC-SA 4.0"
 enableEmoji = true
 
 #[services]
@@ -85,7 +85,7 @@ expiryDate = ["expiryDate"]
   themeColor = "#494f5c"
 
   #homeSubtitle = "CHANGE ME HOME SUBTITLE"
-  footerCopyright = "CHANGE ME FOOTER COPYRIGHT"
+  footerCopyright = "CC BY-NC-SA 4.0"
   # bgImg = ""
   # gitUrl = "https://github.com/1bl4z3r/hermit-V2/tree/staging"
 
