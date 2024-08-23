@@ -50,8 +50,8 @@ expiryDate = ["expiryDate"]
 
 
 [params.author]
-  name = "CHANGE SITE AUTHOR"
-  about = "CHANGE SITE AUTHOR ABOUT"
+  name = "schnellerhase"
+  about = "about"
 
 [blackfriday]
   # hrefTargetBlank = true
@@ -131,5 +131,5 @@ expiryDate = ["expiryDate"]
 
   [[menu.main]]
     name = "About"
-    url = "about-hugo/"
+    url = "about/"
     weight = 20
