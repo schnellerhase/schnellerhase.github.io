@@ -11,7 +11,7 @@
 <li>decision on strictly refinement inclusions</li>
 <li>non matching meshes interpolation -&gt; duality problem</li>
 </ul>
-<h2 id="an-interval-refinement-in-dolfinx">An Interval Refinement in DOLFINx</h2>
+<h2 id="interval-refinement-in-dolfinx">Interval Refinement in DOLFINx</h2>
 <p>Coming soon&hellip;</p>
 <ul>
 <li>febug for visualization</li>
