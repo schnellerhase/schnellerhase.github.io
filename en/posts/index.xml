@@ -1,5 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h2 id="intro">Intro</h2>
-<p>Coming soon&hellip;</p>
+<p>This is the report on the Google Summer of Code 2024 project <a href="https://summerofcode.withgoogle.com/programs/2024/projects/YhEwl8iB">&lsquo;Multigrid for FEniCSx&rsquo;</a> with the umbrella organization <a href="https://numfocus.org/">NumFOCUS</a> on the since 2016 sponsored <a href="https://fenicsproject.org/">FEniCS Project</a>.</p>
+<p>Coming soon: Short history on organization history and difference between dolfin and dolfinx</p>
+<p>Coming soon: People involved, mentors?</p>
 <h2 id="geometric-multigrid-and-an-application-to-gsoc">Geometric Multigrid and an Application to GSOC</h2>
 <p>Coming soon&hellip;</p>
 <h2 id="implementation-decisions">Implementation decisions</h2>
