@@ -23,13 +23,16 @@ This is a different path of choice, then what for example Firedrake (see <a href
 <li>non matching meshes interpolation -&gt; duality problem</li>
 </ul>
 <h2 id="interval-refinement-in-dolfinx">Interval Refinement in DOLFINx</h2>
-<p>Coming soon&hellip;</p>
-<ul>
-<li>febug for visualization</li>
-<li>A story on asserts in python and cpp module</li>
-<li>unifiying refinement interface</li>
-<li>optionals and python export</li>
-</ul>
+<p>So the logical step for getting started with a geometric multigrid in the setting of mesh hirachies produced by refinement routines is naturally the one dimensional case, i.e. interval meshes.
+However DOLFINx at the time did not provide any such routine.
+So as a first major step the implementation of a one dimensional refinement routine was addressed, and resulted in a (merged) <a href="https://github.com/FEniCS/dolfinx/pull/3314">pull request</a>.</p>
+<p>TODO: mesh stored data and aspects of parallization
+TODO: algorithm of choice
+TODO: output: parent cells</p>
+<p>For the debugging of the code, especially in parallel, looking at visualizations of the pre- and post-refinement meshes was a crucial tool.
+This was easy to do thanks to the nice <a href="https://github.com/nate-sime/febug">febug</a> tool, making visualization of different mesh entites straight forward and simple.</p>
+<p>TODO: A story on asserts in python and cpp module</p>
+<p>TODO: unifiying refinement interface (also optionals and python export)</p>
 <h2 id="the-transfer-matrix">The Transfer Matrix</h2>
 <p>Coming soon&hellip;</p>
 <ul>
