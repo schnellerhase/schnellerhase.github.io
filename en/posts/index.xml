@@ -25,6 +25,16 @@ This is a different path of choice, then what for example Firedrake (see <a href
 <p>So, the logical step for getting started with a geometric multigrid in the setting of mesh hirachies produced by refinement routines is naturally the one dimensional case, i.e. interval meshes.
 However DOLFINx at the time did not provide any such routine.
 So as a first major step the implementation of a one dimensional refinement routine was addressed, and resulted in a (merged) <a href="https://github.com/FEniCS/dolfinx/pull/3314">pull request</a>.</p>
+<p>Let us consider a small example to make clear what we need to do.
+Given a mesh of three vertices (bold) and two cells (or equivalently edges)</p>
+<p><strong>0</strong> &mdash; 0 &mdash; <strong>1</strong> &mdash; 1 &mdash; <strong>2</strong> &mdash; 2 &mdash; <strong>3</strong></p>
+<p>we would like to perform a refinement on a set of marked edges (M).
+Let us consider the uniforme refinemet case first, so we mark all edges for refinement, i.e. ( M={ 0, 1, 2 } ).
+While in higher dimensions mesh refinement offers a great number of applicable refinement schemes for refining an edge marked mesh, in one dimesion the necessary operation is unique.
+Every marked edge should be split, i.e. a new vertex in the center is to be introduced and the former edge split into two new finer/shorter ones.
+For the former mesh we thus expect the fine mesh</p>
+<p><strong>0</strong> &mdash; 0 &mdash; <strong>1</strong> &mdash; 1 &mdash; <strong>2</strong> &mdash; 2 &mdash; <strong>3</strong> &mdash; 3 &mdash; <strong>4</strong> &mdash; 4 &mdash; <strong>5</strong> &mdash; 5 &mdash; <strong>6</strong>.</p>
+<p>At a first sight, this seems like a very straight forward operation to implement, however a few caveats arising from prallel data structures with relabeling of indices for locality and the for parallel use cases inevitable repartitioning make this surprisingly evolved to implement.</p>
 <p>TODO: mesh stored data and aspects of parallization
 TODO: algorithm of choice
 TODO: output: parent cells</p>
