@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h2 id="intro">Intro</h2>
-<p>This is the report on the Google Summer of Code 2024 project <a href="https://summerofcode.withgoogle.com/programs/2024/projects/YhEwl8iB">&lsquo;Multigrid for FEniCSx&rsquo;</a> with the umbrella organization <a href="https://numfocus.org/">NumFOCUS</a> on the since 2016 sponsored <a href="https://fenicsproject.org/">FEniCS Project</a>.</p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024 - 'Multigrid for FEniCSx'</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h2 id="intro">Intro</h2>
+<p>This is the report on the Google Summer of Code 2024 project <a href="https://summerofcode.withgoogle.com/programs/2024/projects/YhEwl8iB">&lsquo;Multigrid for FEniCSx&rsquo;</a> with the umbrella organization <a href="https://numfocus.org/">NumFOCUS</a> on the <a href="https://fenicsproject.org/">FEniCS Project</a> sponsored since 2016 by NumFOCUS.</p>
 <p>The FEniCS project&rsquo;s main component is the solving environment <a href="https://doi.org/10.5281/zenodo.10447666">DOLFINx</a>.
 Where the &lsquo;x&rsquo; indicates the new version over the former (now legacy) <a href="https://doi.org/10.11588/ans.2015.100.20553">DOLFIN</a>.
 Even though the goal of both, the legacy and currently delevoped, projects is identical - new requirements, technology and past learnings motivated the rewrite and redisign into a new library.</p>
@@ -7,13 +7,12 @@ Even though the goal of both, the legacy and currently delevoped, projects is id
 <h2 id="geometric-multigrid-and-an-application-to-gsoc">Geometric Multigrid and an Application to GSOC</h2>
 <p>Coming soon&hellip;</p>
 <h2 id="implementation-decisions">Implementation decisions</h2>
-<p>As a starting point of the a big research and getting up to speed phase was necessary to figure out what the FEniCS project wants to achieve with a geometric multigrid implemenation.
-In addition its interaciton with other features and the overall design principles played a major role in this process.
-Let us shortly recap some of these findings and its consequences.</p>
+<p>As a first step in the research and getting up to speed phase, it was necessary to figure out what the FEniCS project wants to achieve with a geometric multigrid implemenation.
+Its interaction with other, arleady present and future, features and the overall design principles of the DOLFINx code base played a major role during this phase.
+Let us shortly recap some of the findings and their consequences for the project.</p>
 <p>One of the fundamental design choices of DOLFINx (also in contrast to its predecessor) is the data driven design.
-Functionality should be provided on, in a best case scenario standard data containers holding the necessary information.
-While object based data wrapping and implicit expectations be kept to a minimum.
-As a main motivation for this the extensibility and usability outside of the context of the initial design goals of the code are to be named.</p>
+Functionality should be provided on standard data containers holding the necessary information, without further encapsulation and object based data wrapping and implicit expectations on data or objects are to be kept to a minimum.
+As a main motivation for this the extensibility and usability outside the initial thought out scope of a given functionality, are to be named.</p>
 <p>For the multigrid implementation this resulted, after carefull consideration, in the decision to make the transfer an explicit function that needs to be provided explicitly for a certain use case.
 This is a different path of choice, then what for example Firedrake (see <a href="https://www.firedrakeproject.org/demos/geometric_multigrid.py.html">here</a>) and PETSc (see <a href="https://petsc.org/release/manualpages/PC/PCGAMG/">here</a>) support with the very implicit construction of transfer operations under the hood, without the user needing to deal with any of it explicitly.</p>
 <p>Besides more explicity for the user, the design should also, in principle, allow for higher performance or at least greater control over it as features are not employed if not chosen by the user.</p>
@@ -23,14 +22,14 @@ This is a different path of choice, then what for example Firedrake (see <a href
 <li>non matching meshes interpolation -&gt; duality problem</li>
 </ul>
 <h2 id="interval-refinement-in-dolfinx">Interval Refinement in DOLFINx</h2>
-<p>So the logical step for getting started with a geometric multigrid in the setting of mesh hirachies produced by refinement routines is naturally the one dimensional case, i.e. interval meshes.
+<p>So, the logical step for getting started with a geometric multigrid in the setting of mesh hirachies produced by refinement routines is naturally the one dimensional case, i.e. interval meshes.
 However DOLFINx at the time did not provide any such routine.
 So as a first major step the implementation of a one dimensional refinement routine was addressed, and resulted in a (merged) <a href="https://github.com/FEniCS/dolfinx/pull/3314">pull request</a>.</p>
 <p>TODO: mesh stored data and aspects of parallization
 TODO: algorithm of choice
 TODO: output: parent cells</p>
-<p>For the debugging of the code, especially in parallel, looking at visualizations of the pre- and post-refinement meshes was a crucial tool.
-This was easy to do thanks to the nice <a href="https://github.com/nate-sime/febug">febug</a> tool, making visualization of different mesh entites straight forward and simple.</p>
+<p>For the debugging of the code, especially in parallel, looking at visualizations of the pre- and post-refinement meshes was a crucial step.
+This was easy to do thanks to the handy <a href="https://github.com/nate-sime/febug">febug</a> tool, making visualization of different mesh entites straight forward and simple.</p>
 <p>TODO: A story on asserts in python and cpp module</p>
 <p>TODO: unifiying refinement interface (also optionals and python export)</p>
 <h2 id="the-transfer-matrix">The Transfer Matrix</h2>
