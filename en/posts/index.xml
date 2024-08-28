@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024 - 'Multigrid for FEniCSx'</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h2 id="intro">Intro</h2>
-<p>This is the report on the Google Summer of Code 2024 project <a href="https://summerofcode.withgoogle.com/programs/2024/projects/YhEwl8iB">&lsquo;Multigrid for FEniCSx&rsquo;</a> with the umbrella organization <a href="https://numfocus.org/">NumFOCUS</a> on the <a href="https://fenicsproject.org/">FEniCS Project</a> sponsored since 2016 by NumFOCUS.</p>
-<p>The FEniCS project&rsquo;s main component is the solving environment <a href="https://doi.org/10.5281/zenodo.10447666">DOLFINx</a>.
-Where the &lsquo;x&rsquo; indicates the new version over the former (now legacy) <a href="https://doi.org/10.11588/ans.2015.100.20553">DOLFIN</a>.
-Even though the goal of both, the legacy and currently delevoped, projects is identical - new requirements, technology and past learnings motivated the rewrite and redisign into a new library.</p>
+<p>This is the report on the Google Summer of Code 2024 project <a href="https://summerofcode.withgoogle.com/programs/2024/projects/YhEwl8iB">&lsquo;Multigrid for FEniCSx&rsquo;</a>, under the auspecies of the <a href="https://numfocus.org/">NumFOCUS</a> organization, on the <a href="https://fenicsproject.org/">FEniCS Project</a>, which is (since 2016) fiscally supported by NumFOCUS.</p>
+<p>The FEniCS project&rsquo;s main component is the finite element solving environment <a href="https://doi.org/10.5281/zenodo.10447666">DOLFINx</a> on which most of the projects work was spent working on.
+The &lsquo;x&rsquo;, here indicates the new version, in comparison to the former (now legacy) <a href="https://doi.org/10.11588/ans.2015.100.20553">DOLFIN</a>.
+Even though the goal of both, the legacy and currently delevoped, projects is identical - new requirements, technology and past learnings motivated the rewrite and redesign into a new library.</p>
 <p>Coming soon: People involved, mentors?</p>
 <h2 id="geometric-multigrid-and-an-application-to-gsoc">Geometric Multigrid and an Application to GSOC</h2>
 <p>Coming soon&hellip;</p>
@@ -11,11 +11,11 @@ Even though the goal of both, the legacy and currently delevoped, projects is id
 Its interaction with other, arleady present and future, features and the overall design principles of the DOLFINx code base played a major role during this phase.
 Let us shortly recap some of the findings and their consequences for the project.</p>
 <p>One of the fundamental design choices of DOLFINx (also in contrast to its predecessor) is the data driven design.
-Functionality should be provided on standard data containers holding the necessary information, without further encapsulation and object based data wrapping and implicit expectations on data or objects are to be kept to a minimum.
+Functionality should be provided on standard data containers holding the necessary information, without further encapsulation and object based data wrapping, while implicit expectations on data or objects are to be kept to a minimum.
 As a main motivation for this the extensibility and usability outside the initial thought out scope of a given functionality, are to be named.</p>
-<p>For the multigrid implementation this resulted, after carefull consideration, in the decision to make the transfer an explicit function that needs to be provided explicitly for a certain use case.
+<p>For the multigrid implementation this resulted, after carefull consideration, in the decision to make the transfer opearation inself an explicit function that needs to be provided explicitly for a certain use case.
 This is a different path of choice, then what for example Firedrake (see <a href="https://www.firedrakeproject.org/demos/geometric_multigrid.py.html">here</a>) and PETSc (see <a href="https://petsc.org/release/manualpages/PC/PCGAMG/">here</a>) support with the very implicit construction of transfer operations under the hood, without the user needing to deal with any of it explicitly.</p>
-<p>Besides more explicity for the user, the design should also, in principle, allow for higher performance or at least greater control over it as features are not employed if not chosen by the user.</p>
+<p>Besides more explicity for the user, the design should also, in principle, allow for higher performance, or at least greater control over it, as features are not employed if not chosen by the user.</p>
 <p>TODO: big picutre, after intro (loss of big picture: p-multigrid, domain decomposition)</p>
 <ul>
 <li>decision on strictly refinement inclusions</li>
