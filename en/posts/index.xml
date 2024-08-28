@@ -21,6 +21,23 @@ This is a different path of choice, then what for example Firedrake (see <a href
 <li>decision on strictly refinement inclusions</li>
 <li>non matching meshes interpolation -&gt; duality problem</li>
 </ul>
+<h2 id="interpolation-operators-and-dual-operators">Interpolation Operators and Dual Operators</h2>
+<p>A first idea to approach the implemenation of a geometric multigrid with the hope of an easy to attain proof of concept, came with the availability of the non-matching mesh interpolation routine of DOLFINx.
+This routine implements a general interpolation operation between non matching meshes, and thus also non-matching, functionspaces in general.
+So we have already the implementation at hand to produce for two different finite element approximation spaces ( V_\text{coarse} ) and ( V_\text{fine} ) mappings</p>
+<p>$$
+P : V_\text{coarse} \to V_\text{fine}
+\quad \text{and} \quad
+R : V_\text{fine} \to V_\text{coarse}.
+$$
+Especially the map ( P ) is injective and ( R ) is surjective, which we expect from general restriction and prolongation operators.</p>
+<p>So a first approach might be to make use of these mappings for a first geometric multigrid implementation and refine it after.
+Howevere a closer look shows an unfixable flaw in this setup.</p>
+<p>Let us consider an example.</p>
+<p>TODO: A nice example</p>
+<p>The problem with the non matching interpolation routines as transfer operators arises from the fact that they are not adjoint maps of one another.
+This breaks the properties of the multigrid operator - for example without duality we loose every mathematical ground of proving any properties of the multigrid operator matrix, such as for example the for convergence critical spectral radius.</p>
+<p>TODO: story about adjointness of the operators vs adjointsnes of the transfer matrices.</p>
 <h2 id="interval-refinement-in-dolfinx">Interval Refinement in DOLFINx</h2>
 <p>So, the logical step for getting started with a geometric multigrid in the setting of mesh hirachies produced by refinement routines is naturally the one dimensional case, i.e. interval meshes.
 However DOLFINx at the time did not provide any such routine.
