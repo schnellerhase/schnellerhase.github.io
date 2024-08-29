@@ -55,7 +55,13 @@ TODO: algorithm of choice
 TODO: output: parent cells</p>
 <p>For the debugging of the code, especially in parallel, looking at visualizations of the pre- and post-refinement meshes was a crucial step.
 This was easy to do thanks to the handy <a href="https://github.com/nate-sime/febug">febug</a> tool, making visualization of different mesh entites straight forward and simple.</p>
-<p>TODO: A story on asserts in python and cpp module</p>
+<h3 id="a-story-on-assertions-in-compiled-python-modules">A Story on Assertions in Compiled Python Modules</h3>
+<p>After discovering an inital bug in the merged code, resulting in an obscurre crash of a python test, we discovered a problem of the interaction with assertions and the python runtime.
+The error was caused by the code hitting, correctly due to a wrongly designed test case, an assertion in the C++ part of the software.
+However the <code>pytest</code> framework, which is used for unit and integration tests in the FEniCS project, did not pick up on this and only showed a inconclusive core dump.
+This turned out to be a bigger and not trivally fixable problem.
+If the C++ part, i.e. in a call of the compiled python module, hits an C-style assertion the runtime itself is killed, as this triggers a call to <code>abort´. Especially the handling of the assertion is not returned to the outer python context which has systems in place to recover from this. As </code>abort<code>produces a</code>SIGABRT<code>signal that forcefully ends the program there is no easy way of fixing this interaction. However if the python module (so the C++ code) is build in a</code>Debug` mode we would like to be able to debug from the python side as well, which is then no longer possible.
+This needs to be investigated further and remains an <a href="https://github.com/FEniCS/dolfinx/issues/3333">open issue</a>.</p>
 <p>TODO: unifiying refinement interface (also optionals and python export)</p>
 <h2 id="the-transfer-matrix">The Transfer Matrix</h2>
 <p>Coming soon&hellip;</p>
