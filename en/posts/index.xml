@@ -6,6 +6,7 @@ Even though the goal of both, the legacy and currently delevoped, projects is id
 <p>Coming soon: People involved, mentors?</p>
 <h2 id="geometric-multigrid-and-an-application-to-gsoc">Geometric Multigrid and an Application to GSOC</h2>
 <p>Coming soon&hellip;</p>
+<p>TODO: link proposal?</p>
 <h2 id="implementation-decisions">Implementation decisions</h2>
 <p>As a first step in the research and getting up to speed phase, it was necessary to figure out what the FEniCS project wants to achieve with a geometric multigrid implemenation.
 Its interaction with other, arleady present and future, features and the overall design principles of the DOLFINx code base played a major role during this phase.
