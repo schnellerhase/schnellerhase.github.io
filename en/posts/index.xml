@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024 - 'Multigrid for FEniCSx'</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h2 id="intro">Intro</h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024 - Multigrid for FEniCSx</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h2 id="intro">Intro</h2>
 <p>This is the report on the Google Summer of Code 2024 project <a href="https://summerofcode.withgoogle.com/programs/2024/projects/YhEwl8iB">&lsquo;Multigrid for FEniCSx&rsquo;</a>, under the auspecies of the <a href="https://numfocus.org/">NumFOCUS</a> organization, on the <a href="https://fenicsproject.org/">FEniCS Project</a>, which is (since 2016) fiscally supported by NumFOCUS.</p>
 <p>The FEniCS project&rsquo;s main component is the finite element solving environment <a href="https://doi.org/10.5281/zenodo.10447666">DOLFINx</a> on which most of the projects work was spent working on.
 The &lsquo;x&rsquo;, here indicates the new version, in comparison to the former (now legacy) <a href="https://doi.org/10.11588/ans.2015.100.20553">DOLFIN</a>.
@@ -60,9 +60,20 @@ This was easy to do thanks to the handy <a href="https://github.com/nate-sime/fe
 The error was caused by the code hitting, correctly due to a wrongly designed test case, an assertion in the C++ part of the software.
 However the <code>pytest</code> framework, which is used for unit and integration tests in the FEniCS project, did not pick up on this and only showed a inconclusive core dump.
 This turned out to be a bigger and not trivally fixable problem.
-If the C++ part, i.e. in a call of the compiled python module, hits an C-style assertion the runtime itself is killed, as this triggers a call to <code>abort´. Especially the handling of the assertion is not returned to the outer python context which has systems in place to recover from this. As </code>abort<code>produces a</code>SIGABRT<code>signal that forcefully ends the program there is no easy way of fixing this interaction. However if the python module (so the C++ code) is build in a</code>Debug` mode we would like to be able to debug from the python side as well, which is then no longer possible.
+If the C++ part, i.e. in a call of the compiled python module, hits an C-style assertion the runtime itself is killed, as this triggers a call to ´abort´.
+Especially the handling of the assertion is not returned to the outer python context which has systems in place to recover from this.
+As <code>abort</code> produces a <code>SIGABRT</code> signal that forcefully ends the program there is no easy way of fixing this interaction.
+However if the python module (so the C++ code) is build in a <code>Debug</code> mode we would like to be able to debug from the python side as well, which is then no longer possible.
 This needs to be investigated further and remains an <a href="https://github.com/FEniCS/dolfinx/issues/3333">open issue</a>.</p>
-<p>TODO: unifiying refinement interface (also optionals and python export)</p>
+<h3 id="unifiying-the-refinement-interface">Unifiying the Refinement Interface</h3>
+<p>After the one dimensional refinement routine was merged, in a second endeavor we wanted to merge its interface with the previously available two and three dimensional Plaza refinement routines.
+This resulted in a lot of changes and simplifications to the interface.
+It became more explicit and easier to use.</p>
+<p>One technical change that was introduced to facilitate this was the use of <code>std::optional</code>&rsquo;s for input and output parameters.
+Previously these were not used and a &rsquo;no-set&rsquo; case was always handled separately leading to multiple different code paths.
+Additionally this dispatching needed to be present in the python module as well.
+Nanobind (the python exporter used in the DOLFINx project) however supports the <code>std::optionals</code> matching from the python optional <code>None</code> or value style for this.
+So after changing we no longer need to handle different parameter combinatios in the python module, but that all happens in C++ module.</p>
 <h2 id="the-transfer-matrix">The Transfer Matrix</h2>
 <p>Coming soon&hellip;</p>
 <ul>
