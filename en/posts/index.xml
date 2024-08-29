@@ -22,13 +22,13 @@ In addition the mesh hirachies considered in this project should be produced by 
 <h2 id="interpolation-operators-and-dual-operators">Interpolation Operators and Dual Operators</h2>
 <p>A first idea to approach the implemenation of a geometric multigrid with the hope of an easy to attain proof of concept, came with the availability of the non-matching mesh interpolation routine of DOLFINx.
 This routine implements a general interpolation operation between non matching meshes, and thus also non-matching, functionspaces in general.
-So we have already the implementation at hand to produce for two different finite element approximation spaces ( V_\text{coarse} ) and ( V_\text{fine} ) mappings</p>
+So we have already the implementation at hand to produce for two different finite element approximation spaces ( V*\text{coarse} ) and ( V*\text{fine} ) mappings</p>
 <p>$$
 P : V_\text{coarse} \to V_\text{fine}
 \quad \text{and} \quad
 R : V_\text{fine} \to V_\text{coarse}.
-$$
-Especially the map ( P ) is injective and ( R ) is surjective, which we expect from general restriction and prolongation operators.</p>
+$$</p>
+<p>Especially the map ( P ) is injective and ( R ) is surjective, which we expect from general restriction and prolongation operators.</p>
 <p>So a first approach might be to make use of these mappings for a first geometric multigrid implementation and refine it after.
 Howevere a closer look shows an unfixable flaw in this setup.</p>
 <p>Let us consider an example.</p>
