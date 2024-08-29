@@ -1,0 +1,129 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on schnellerhase</title><link>https://schnellerhase.github.io/en/posts/</link><description>Recent content in Posts on schnellerhase</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC BY-NC-SA 4.0</copyright><lastBuildDate>Thu, 22 Aug 2024 22:47:31 +0200</lastBuildDate><atom:link href="https://schnellerhase.github.io/en/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Summer of Code 2024 - 'Multigrid for FEniCSx'</title><link>https://schnellerhase.github.io/en/posts/2024/gsoc/</link><pubDate>Thu, 22 Aug 2024 22:47:31 +0200</pubDate><guid>https://schnellerhase.github.io/en/posts/2024/gsoc/</guid><description>%!s(&lt;nil>)</description><content type="html"><![CDATA[<h2 id="intro">Intro</h2>
+<p>This is the report on the Google Summer of Code 2024 project <a href="https://summerofcode.withgoogle.com/programs/2024/projects/YhEwl8iB">&lsquo;Multigrid for FEniCSx&rsquo;</a>, under the auspecies of the <a href="https://numfocus.org/">NumFOCUS</a> organization, on the <a href="https://fenicsproject.org/">FEniCS Project</a>, which is (since 2016) fiscally supported by NumFOCUS.</p>
+<p>The FEniCS project&rsquo;s main component is the finite element solving environment <a href="https://doi.org/10.5281/zenodo.10447666">DOLFINx</a> on which most of the projects work was spent working on.
+The &lsquo;x&rsquo;, here indicates the new version, in comparison to the former (now legacy) <a href="https://doi.org/10.11588/ans.2015.100.20553">DOLFIN</a>.
+Even though the goal of both, the legacy and currently delevoped, projects is identical - new requirements, technology and past learnings motivated the rewrite and redesign into a new library.</p>
+<p>Coming soon: People involved, mentors?</p>
+<h2 id="geometric-multigrid-and-an-application-to-gsoc">Geometric Multigrid and an Application to GSOC</h2>
+<p>Coming soon&hellip;</p>
+<p>TODO: link proposal?</p>
+<h2 id="implementation-decisions">Implementation decisions</h2>
+<p>As a first step in the research and getting up to speed phase, it was necessary to figure out what the FEniCS project wants to achieve with a geometric multigrid implemenation.
+Its interaction with other, arleady present and future, features and the overall design principles of the DOLFINx code base played a major role during this phase.
+Let us shortly recap some of the findings and their consequences for the project.</p>
+<p>One of the fundamental design choices of DOLFINx (also in contrast to its predecessor) is the data driven design.
+Functionality should be provided on standard data containers holding the necessary information, without further encapsulation and object based data wrapping, while implicit expectations on data or objects are to be kept to a minimum.
+As a main motivation for this the extensibility and usability outside the initial thought out scope of a given functionality, are to be named.</p>
+<p>For the multigrid implementation this resulted, after carefull consideration, in the decision to make the transfer opearation inself an explicit function that needs to be provided explicitly for a certain use case.
+This is a different path of choice, then what for example Firedrake (see <a href="https://www.firedrakeproject.org/demos/geometric_multigrid.py.html">here</a>) and PETSc (see <a href="https://petsc.org/release/manualpages/PC/PCGAMG/">here</a>) support with the very implicit construction of transfer operations under the hood, without the user needing to deal with any of it explicitly.
+In addition the mesh hirachies considered in this project should be produced by the available refinement routines (based on the work of <a href="https://www.oden.utexas.edu/media/reports/1996/9654.pdf">Plaza</a>), and not be applicable to general meshes without clear containment.</p>
+<p>Besides more explicity for the user, the design should also, in principle, allow for higher performance, or at least greater control over it, as features are not employed if not chosen by the user.</p>
+<p>TODO: big picutre, after intro (loss of big picture: p-multigrid, domain decomposition)</p>
+<h2 id="interpolation-operators-and-dual-operators">Interpolation Operators and Dual Operators</h2>
+<p>A first idea to approach the implemenation of a geometric multigrid with the hope of an easy to attain proof of concept, came with the availability of the non-matching mesh interpolation routine of DOLFINx.
+This routine implements a general interpolation operation between non matching meshes, and thus also non-matching, functionspaces in general.
+So we have already the implementation at hand to produce for two different finite element approximation spaces ( V_\text{coarse} ) and ( V_\text{fine} ) mappings</p>
+<p>$$
+P : V_\text{coarse} \to V_\text{fine}
+\quad \text{and} \quad
+R : V_\text{fine} \to V_\text{coarse}.
+$$
+Especially the map ( P ) is injective and ( R ) is surjective, which we expect from general restriction and prolongation operators.</p>
+<p>So a first approach might be to make use of these mappings for a first geometric multigrid implementation and refine it after.
+Howevere a closer look shows an unfixable flaw in this setup.</p>
+<p>Let us consider an example.</p>
+<p>TODO: A nice example</p>
+<p>The problem with the non matching interpolation routines as transfer operators arises from the fact that they are not adjoint maps of one another.
+This breaks the properties of the multigrid operator - for example without duality we loose every mathematical ground of proving any properties of the multigrid operator matrix, such as for example the for convergence critical spectral radius.</p>
+<p>TODO: story about adjointness of the operators vs adjointsnes of the transfer matrices.</p>
+<h2 id="interval-refinement-in-dolfinx">Interval Refinement in DOLFINx</h2>
+<p>So, the logical step for getting started with a geometric multigrid in the setting of mesh hirachies produced by refinement routines is naturally the one dimensional case, i.e. interval meshes.
+However DOLFINx at the time did not provide any such routine.
+So as a first major step the implementation of a one dimensional refinement routine was addressed, and resulted in a (merged) <a href="https://github.com/FEniCS/dolfinx/pull/3314">pull request</a>.</p>
+<p>Let us consider a small example to make clear what we need to do.
+Given a mesh of three vertices (bold) and two cells (or equivalently edges)</p>
+<p><strong>0</strong> &mdash; 0 &mdash; <strong>1</strong> &mdash; 1 &mdash; <strong>2</strong> &mdash; 2 &mdash; <strong>3</strong></p>
+<p>we would like to perform a refinement on a set of marked edges (M).
+Let us consider the uniforme refinemet case first, so we mark all edges for refinement, i.e. ( M={ 0, 1, 2 } ).
+While in higher dimensions mesh refinement offers a great number of applicable refinement schemes for refining an edge marked mesh, in one dimesion the necessary operation is unique.
+Every marked edge should be split, i.e. a new vertex in the center is to be introduced and the former edge split into two new finer/shorter ones.
+For the former mesh we thus expect the fine mesh</p>
+<p><strong>0</strong> &mdash; 0 &mdash; <strong>1</strong> &mdash; 1 &mdash; <strong>2</strong> &mdash; 2 &mdash; <strong>3</strong> &mdash; 3 &mdash; <strong>4</strong> &mdash; 4 &mdash; <strong>5</strong> &mdash; 5 &mdash; <strong>6</strong>.</p>
+<p>At a first sight, this seems like a very straight forward operation to implement, however a few caveats arising from prallel data structures with relabeling of indices for locality and the for parallel use cases inevitable repartitioning make this surprisingly evolved to implement.</p>
+<p>TODO: mesh stored data and aspects of parallization
+TODO: algorithm of choice
+TODO: output: parent cells</p>
+<p>For the debugging of the code, especially in parallel, looking at visualizations of the pre- and post-refinement meshes was a crucial step.
+This was easy to do thanks to the handy <a href="https://github.com/nate-sime/febug">febug</a> tool, making visualization of different mesh entites straight forward and simple.</p>
+<p>TODO: A story on asserts in python and cpp module</p>
+<p>TODO: unifiying refinement interface (also optionals and python export)</p>
+<h2 id="the-transfer-matrix">The Transfer Matrix</h2>
+<p>Coming soon&hellip;</p>
+<ul>
+<li>parallization and ghost nodes</li>
+<li>graph partitioning</li>
+</ul>
+<h2 id="geometric-twogrid-example">Geometric Twogrid Example</h2>
+<p>Coming soon&hellip;</p>
+<h2 id="general-code-contributions">General Code Contributions</h2>
+<p>While the main project focused on the implementation of a geometric multigrid a lot of incidental and supportive changes where contributed to different repositories as well.
+Split across multiple repositories, we want to shortly outline the highlights of these in chronological order.</p>
+<h3 id="dolfinx---introduce-aliasing-for-mdspan-closedhttpsgithubcomfenicsdolfinxpull3116">DOLFINx - Introduce aliasing for mdspan <a href="https://github.com/FEniCS/dolfinx/pull/3116">(Closed)</a></h3>
+<p>The <code>mdspan</code> library in use with the FEniCS Project is based on the Kokkos <a href="https://github.com/kokkos/mdspan">refrence implementation</a>.
+To facilitate the namespace switching depending on compiler support of either <code>std::experimental::mdspan</code> or <code>std::mdspan</code> or none of the above the implementation introduces the macro <code>MDSPAN_IMPL_STANDARD_NAMESPACE</code>.
+This causes bloated calls, i.e. everytime it is necessary to write out <code>MDSPAN_IMPL_STANDARD_NAMESPACE::mdspan</code>.
+In the pull request this was suggested to be warpped into a custom hiding layer, i.e. allowing for access via <code>dolfinx::common::mdspan</code>, no matter to what this dispatches to.
+This would also allow the code to remain untouched in the future if one updates to the STL versions.
+After a discussion the changes were rejected, due to it being considered an approximation of a third-party librarby.</p>
+<h3 id="basix---update-mdspan-mergedhttpsgithubcomfenicsbasixpull840">Basix - Update mdspan <a href="https://github.com/FEniCS/basix/pull/840">(Merged)</a></h3>
+<p>Update to new Kokkos single header <code>mdspan</code> changes.</p>
+<h3 id="dolfinx---make-compile-time-options-compile-time-constants-mergedhttpsgithubcomfenicsdolfinxpull3246">DOLFINx - Make compile time options compile time constants <a href="https://github.com/FEniCS/dolfinx/pull/3246">(Merged)</a></h3>
+<p>Previously in translation units wrapped transformation of compiler flag was moved to header files in combination with the usage of <code>consteval</code> to make them truely compile time constants.
+The idiom of the changes was for a given (<code>cmake</code>) flag <code>FLAG</code> is demonstrated below.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">bool</span> <span class="nf">has_flag</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef FLAG
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">}</span>
+</span></span></code></pre></div><h3 id="dolfinx---some-updates-for-mesh-generation-openhttpsgithubcomfenicsdolfinxpull3275">DOLFINx - Some updates for mesh generation <a href="https://github.com/FEniCS/dolfinx/pull/3275">(Open)</a></h3>
+<p>Whilst reading up the mesh related data structures in DOLFINx for the project, I notices quite a few sub-optimal code paths in the generation code of meshes.
+In this PR these were adressed, mostly consisting of modernizations, simplifications and some additional testing.
+The modernizations also made use of the previously (in the FEniCS Project) unused <a href="https://en.cppreference.com/w/cpp/ranges">ranges library</a>, this was the trigger for looking into the following 12 pull requests.</p>
+<h3 id="basix---update-to-stdranges-usage-mergedhttpsgithubcomfenicsbasixpull837">Basix - Update to std::ranges usage <a href="https://github.com/FEniCS/basix/pull/837">(Merged)</a></h3>
+<p>Made use of all <code>C++20</code> available ranges algorithms in the Basix code base.</p>
+<h3 id="basix---c23-support-revertedhttpsgithubcomfenicsbasixpull838">Basix - C++23 Support <a href="https://github.com/FEniCS/basix/pull/838">(Reverted)</a></h3>
+<p>Some important parts of the ranges library were missed in <code>C++20</code>, and are only available from <code>C++23</code> onward.
+So to check general compatibility of the FEniCS packages with <code>C++23</code> we looked into the root dependency Basix and confirmed that we it is <code>C++23</code> ready in this PR.
+This move to the <code>C++23</code> standard was later on reverted, and it was decided on to (not yet) switch to <code>C++23</code> but remain with <code>C++20</code> for now mainly due to lacking compiler support.</p>
+<h3 id="dolfinx---update-to-stdranges-usage">DOLFINx - Update to <code>std::ranges</code> usage</h3>
+<p>Modernization to range based algorithms across all of DOLFINx, split up into several PR&rsquo;s:</p>
+<ul>
+<li>Replace <code>std::sort</code> with <code>std::ranges::sort</code> <a href="https://github.com/FEniCS/dolfinx/pull/3293">(Merged)</a></li>
+<li>Replace <code>std::fill</code> with <code>std::ranges::fill</code> <a href="https://github.com/FEniCS/dolfinx/pull/3294">(Merged)</a></li>
+<li>Replace <code>std::lower/uper_bound</code> with <code>std::ranges::lower/uper_bound</code> <a href="https://github.com/FEniCS/dolfinx/pull/3295">(Merged)</a></li>
+<li>Replace <code>std::for_each</code> with <code>std::ranges::for_each</code> <a href="https://github.com/FEniCS/dolfinx/pull/3296">(Merged)</a></li>
+<li>Replace <code>std::transform</code> with <code>std::ranges::transform</code> <a href="https://github.com/FEniCS/dolfinx/pull/3297">(Merged)</a></li>
+<li>Replace <code>std::set_*</code> with <code>std::ranges::set_*</code> <a href="https://github.com/FEniCS/dolfinx/pull/3298">(Merged)</a></li>
+<li>Replace <code>std::copy</code> with <code>std::ranges::copy</code> <a href="https://github.com/FEniCS/dolfinx/pull/3299">(Merged)</a></li>
+<li>Replace <code>std::min/max</code> with <code>std::ranges::min/max</code> <a href="https://github.com/FEniCS/dolfinx/pull/3300">(Merged)</a></li>
+<li>Replace <code>std::unique</code> with <code>std::ranges::unique</code> <a href="https://github.com/FEniCS/dolfinx/pull/3315">(Merged)</a></li>
+</ul>
+<h3 id="rework-radix_sort-mergedhttpsgithubcomfenicsdolfinxpull3313">Rework <code>radix_sort</code> <a href="https://github.com/FEniCS/dolfinx/pull/3313">(Merged)</a></h3>
+<p>While updating from <code>std::sort</code> to <code>std::ranges::sort</code>, I noted, that the custom DOLFINx implementation of radix sort <code>radix_sort</code> (which is used for performance critical sorting of degree of freedom indices mostly), is not compatible with the ranges interface.
+In this pull request a range based <code>radix_sort</code> was introduced, which allows for &rsquo;equal&rsquo; usage as <code>std::ranges::sort</code>.
+For this the operator based approach as in the ranges library was followed and a projection routine for the elements can be injected.
+This enabled for the removal of the previously also hand coded <code>argsort_radix</code> in DOLFINx, leaving only one <code>radix_sort</code> functionality left.
+Due to its performance relevance the changes where benchmarked <a href="https://github.com/schnellerhase/dolfinx/pull/24">here</a> and showed that the higher quality code is also the faster one.</p>
+<h3 id="favor-exterior_facet_indices-over-locate_entities_boundary-for-retrieving-complete-boundary-mergedhttpsgithubcomfenicsdolfinxpull3283">Favor <code>exterior_facet_indices</code> over <code>locate_entities_boundary</code> for retrieving complete boundary <a href="https://github.com/FEniCS/dolfinx/pull/3283">(Merged)</a></h3>
+<p>This pull request adressed the observation that when all boundary entites need to be selected in FEniCSx to construct a Dirichlet boundary condition on it, we must not filter these with a specific lambda as the default interface of <code>locate_entities_boundary</code> requires, but rather use the <code>exterior_facet_indices</code> which just gets all boundary facets.
+This triggered a (still ongoing) discussion on optional arguments in the DOLFINx code base and its implications to the exported python module.</p>
+<h3 id="some-other-stritcly-maintenance-prs">Some other stritcly maintenance PR&rsquo;s</h3>
+<ul>
+<li>DOLFINx - Fix ruff check <a href="https://github.com/FEniCS/dolfinx/pull/3349">(Merged)</a></li>
+<li>febug - Fix installation with <code>dolfinx</code> main <a href="https://github.com/nate-sime/febug/pull/13">(Merged)</a></li>
+<li>FEniCS/web - Fix CI <a href="https://github.com/FEniCS/web/pull/187">(Merged)</a></li>
+</ul>
+]]></content></item></channel></rss>
