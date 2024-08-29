@@ -113,6 +113,10 @@ expiryDate = ["expiryDate"]
     name = "github"
     url = "https://github.com/schnellerhase"
 
+  [[params.socialLinks]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/paul-kuehner/"
+
 [menu]
 
   [[menu.main]]
