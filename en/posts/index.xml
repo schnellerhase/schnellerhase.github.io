@@ -283,13 +283,13 @@ $$</p>
 <p>with the non matching interpolations as restriction ( R : V_\text{fine} \to V_\text{coarse} ) and prolongation ( P : V_\text{coarse} \to V_\text{fine} ) operators, i.e.</p>
 <p>$$
 P = \begin{bmatrix}
-1 &amp; 0 \
-\frac{1}{2} &amp; \frac{1}{2} \
+1 &amp; 0 \newline
+\frac{1}{2} &amp; \frac{1}{2} \newline
 0 &amp; 1
 \end{bmatrix}
 \quad \text{and} \quad
 R = \begin{bmatrix}
-1 &amp; 0  &amp; 0 \
+1 &amp; 0  &amp; 0 \newline
 0 &amp; 0 &amp; 1
 \end{bmatrix}
 $$</p>
