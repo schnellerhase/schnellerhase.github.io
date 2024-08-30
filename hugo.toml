@@ -3,7 +3,10 @@
 baseURL = 'https://schnellerhase.github.io/'
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
-theme = "hermit-v2"
+theme = ["hermit-v2", "hugo-embed-pdf-shortcode"]
+
+# Configures hugo-embed-pdf-shortcode
+enableInlineShortcodes = true
 
 #[languages]
 #  [languages.en]
@@ -41,6 +44,10 @@ enableEmoji = true
 #    shortname = ''
 #  [services.googleAnalytics]
 #    id = ''
+
+[[module.mounts]]
+source = "static"
+target = "static"
 
 [frontmatter]
 date = ["date", "publishDate", "lastmod"]
