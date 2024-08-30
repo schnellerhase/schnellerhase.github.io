@@ -18,9 +18,9 @@ Although the objective of both the legacy and current projects is identical, the
 
 ## Geometric Multigrid and an Application to GSOC
 
-Coming soon...
+Let us for this section reference the proposal of the project, which explains the project's goals.
 
-TODO: link proposal?
+{{< embed-pdf url="/gsoc-proposal.pdf" renderPageNum="1" hidePaginator="true" >}}
 
 ## Implementation decisions
 
