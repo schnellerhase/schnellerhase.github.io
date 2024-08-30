@@ -271,20 +271,43 @@ This should be a relatively straightforward process to implement once the geomet
 <h2 id="interpolation-operators-and-dual-operators">Interpolation Operators and Dual Operators</h2>
 <p>A first idea to approach the implementation of a geometric multigrid with the hope of an easy to attain proof of concept, came with the availability of the non-matching mesh interpolation routine of DOLFINx.
 This routine implements a general interpolation operation between non matching meshes, and thus also non-matching, function spaces in general.
-So we have already the implementation at hand to produce for two different finite element approximation spaces ( V*\text{coarse} ) and ( V*\text{fine} ) mappings</p>
+So we have already the implementation at hand to produce for two different finite element approximation spaces ( V_\text{coarse} ) and ( V_\text{fine} ) mappings
+So a first approach might be to make use of these mappings for a first geometric multigrid implementation and refine it after.
+Nevertheless, a more detailed examination reveals an inherent and irremediable defect in this setup.</p>
+<p>Let us consider an one dimensional example.</p>
 <p>$$
-P : V_\text{coarse} \to V_\text{fine}
+V_\text{coarse} = P^1 ( \left{0, 1 \right})
 \quad \text{and} \quad
-R : V_\text{fine} \to V_\text{coarse}.
+V_\text{fine} = P^1 \left(\left{0, \frac{1}{2}, 1 \right} \right)
 $$</p>
-<p>Especially the map ( P ) is injective and ( R ) is surjective, which we expect from general restriction and prolongation operators.</p>
-<p>So a first approach might be to make use of these mappings for a first geometric multigrid implementation and refine it after.
-However a closer look shows an unfixable flaw in this setup.</p>
-<p>Let us consider an example.</p>
-<p>TODO: A nice example</p>
-<p>The problem with the non matching interpolation routines as transfer operators arises from the fact that they are not adjoint maps of one another.
+<p>with the non matching interpolations as restriction ( R : V_\text{fine} \to V_\text{coarse} ) and prolongation ( P : V_\text{coarse} \to V_\text{fine} ) operators, i.e.</p>
+<p>$$
+P = \begin{bmatrix}
+1 &amp; 0 \
+\frac{1}{2} &amp; \frac{1}{2} \
+0 &amp; 1
+\end{bmatrix}
+\quad \text{and} \quad
+R = \begin{bmatrix}
+1 &amp; 0  &amp; 0 \
+0 &amp; 0 &amp; 1
+\end{bmatrix}
+$$</p>
+<p>Especially the map ( P ) is injective and ( R ) is surjective, which fits our expectations.
+But we loose one very important property that we require for transfer operators.
+The restriction should be the adjoint of the prolongation, i.e. (for matrices)</p>
+<p>$$
+R = P^T  \iff P = R^T.
+$$</p>
+<p>For the example this is not the case.
 This breaks the properties of the multigrid operator - for example without duality we loose every mathematical ground of proving any properties of the multigrid operator matrix, such as for example the for convergence critical spectral radius.</p>
-<p>TODO: story about adjointness of the operators vs adjointsnes of the transfer matrices.</p>
+<h3 id="testing-discrete-adjoint-operators">Testing Discrete Adjoint Operators</h3>
+<p>The subtleties around the adjoint property do need end with this.
+The requirement of the adjointness on the transfer operators and the implications on coefficients of the transferred functions preclude the possibility of recovering function scaling
+Consequently, it is not feasible to expect that a combination of interpolations between the two spaces will yield a suitable transfer operator combination..</p>
+<p>Furthermore, this suggests that meticulous attention must be paid to the criteria employed during the assessment of transfer operators, particularly with regard to the verification of implementations.
+To illustrate, the constant one function is not recovered after it has been restricted and prolonged with suitable operators.
+This is a consequence of our focus on the transfer of the residual, that is, an element of the dual space, not a function.</p>
 <h2 id="interval-refinement-in-dolfinx">Interval Refinement in DOLFINx</h2>
 <p>So, the logical step for getting started with a geometric multigrid in the setting of mesh hierarchies produced by refinement routines is naturally the one dimensional case, i.e. interval meshes.
 However DOLFINx at the time did not provide any such routine.
