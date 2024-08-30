@@ -4,7 +4,6 @@
 <p>The FEniCS project&rsquo;s primary component is the finite element solving environment, <a href="https://doi.org/10.5281/zenodo.10447666">DOLFINx</a>, on which the majority of the project&rsquo;s work was conducted.
 The &ldquo;x&rdquo; indicates that this is a new version, which supersedes the former (now legacy) <a href="https://doi.org/10.11588/ans.2015.100.20553">DOLFIN</a>.
 Although the objective of both the legacy and current projects is identical, the necessity to adapt to new requirements, incorporate new technological advances and, integrate insights gained from previous experiences has prompted the decision to rewrite and redesign the project in a new version.</p>
-<p>Coming soon: People involved, mentors?</p>
 <h2 id="geometric-multigrid-and-an-application-to-gsoc">Geometric Multigrid and an Application to GSOC</h2>
 <p>Coming soon&hellip;</p>
 <p>TODO: link proposal?</p>
@@ -144,4 +143,12 @@ This triggered a (still ongoing) discussion on optional arguments in the DOLFINx
 <li>febug - Fix installation with <code>dolfinx</code> main <a href="https://github.com/nate-sime/febug/pull/13">(Merged)</a></li>
 <li>FEniCS/web - Fix CI <a href="https://github.com/FEniCS/web/pull/187">(Merged)</a></li>
 </ul>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>I would like to express my gratitude to the following individuals and institutions for their support and contributions:</p>
+<p>Firstly I would like to the (previously mentioned) supervisors of the GSOC project, for their kind welcome to the community and receptivity to new ideas, as well as for fostering a generally constructive and engaging atmosphere for discussion.</p>
+<p>I am indepted to <a href="https://finsberg.github.io/">Henrik N. Finsberg</a> (Senior Research Engineer, Simula Research Laboratory) and <a href="https://jsdokken.com/">Jørgen S. Dokken</a> (Senior Research Engineer, Simula Research Laboratory) for acting as my initial point of contact with the FEniCS project and for making me aware of the possibilty of a GSOC project.</p>
+<p>Furthermore, I would be remiss if I did not acknowledge the contributions of all community members who provided assistance on the Slack channel or through comments and feedback on various pull requests.</p>
+<p>During the GSOC period, I was fortunate to attend the <a href="https://fenicsproject.org/fenics-2024/">FEniCS conference 2024</a>, which I was able to do with the assistance of a NumFOCUS travel award.
+Otherwise, it would not have been feasible to interact with all of the mentors and community members who were present in person.</p>
+<p>In conclusion, I would like to express my gratitude to the Google Summer of Code program for providing me with the opportunity and financial support, which enabled me to pursue my academic interests and enhance my technical abilities with minimal constraints.</p>
 ]]></content></item></channel></rss>
