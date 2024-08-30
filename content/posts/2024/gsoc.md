@@ -62,13 +62,13 @@ with the non matching interpolations as restriction \( R : V_\text{fine} \to V_\
 
 $$
 P = \begin{bmatrix}
-  1 & 0 \\
-  \frac{1}{2} & \frac{1}{2} \\
+  1 & 0 \newline
+  \frac{1}{2} & \frac{1}{2} \newline
   0 & 1
 \end{bmatrix}
 \quad \text{and} \quad
 R = \begin{bmatrix}
-  1 & 0  & 0 \\
+  1 & 0  & 0 \newline
   0 & 0 & 1
 \end{bmatrix}
 $$
