@@ -46,26 +46,45 @@ This should be a relatively straightforward process to implement once the geomet
 
 A first idea to approach the implementation of a geometric multigrid with the hope of an easy to attain proof of concept, came with the availability of the non-matching mesh interpolation routine of DOLFINx.
 This routine implements a general interpolation operation between non matching meshes, and thus also non-matching, function spaces in general.
-So we have already the implementation at hand to produce for two different finite element approximation spaces \( V*\text{coarse} \) and \( V*\text{fine} \) mappings
-
-$$
-P : V_\text{coarse} \to V_\text{fine}
-\quad \text{and} \quad
-R : V_\text{fine} \to V_\text{coarse}.
-$$
-
-Especially the map \( P \) is injective and \( R \) is surjective, which we expect from general restriction and prolongation operators.
-
+So we have already the implementation at hand to produce for two different finite element approximation spaces \( V_\text{coarse} \) and \( V_\text{fine} \) mappings
 So a first approach might be to make use of these mappings for a first geometric multigrid implementation and refine it after.
-However a closer look shows an unfixable flaw in this setup.
+Nevertheless, a more detailed examination reveals an inherent and irremediable defect in this setup.
 
-Let us consider an example.
+Let us consider an one dimensional example.
 
-TODO: A nice example
+$$
+V_\text{coarse} = P^1 ( \left\{0, 1 \right\})
+\quad \text{and} \quad
+V_\text{fine} = P^1 \left(\left\{0, \frac{1}{2}, 1 \right\} \right)
+$$
 
-The problem with the non matching interpolation routines as transfer operators arises from the fact that they are not adjoint maps of one another.
+with the non matching interpolations as restriction \( R : V_\text{fine} \to V_\text{coarse} \) and prolongation \( P : V_\text{coarse} \to V_\text{fine} \) operators, i.e.
+
+$$
+P = \begin{bmatrix}
+  1 & 0 \\
+  \frac{1}{2} & \frac{1}{2} \\
+  0 & 1
+\end{bmatrix}
+\quad \text{and} \quad
+R = \begin{bmatrix}
+  1 & 0  & 0 \\
+  0 & 0 & 1
+\end{bmatrix}
+$$
+
+Especially the map \( P \) is injective and \( R \) is surjective, which fits our expectations.
+But we loose one very important property that we require for transfer operators.
+The restriction should be the adjoint of the prolongation, i.e. (for matrices)
+
+$$
+R = P^T  \iff P = R^T.
+$$
+
+For the example this is not the case.
 This breaks the properties of the multigrid operator - for example without duality we loose every mathematical ground of proving any properties of the multigrid operator matrix, such as for example the for convergence critical spectral radius.
 
+### Testing Discrete Adjoint Operators
 TODO: story about adjointness of the operators vs adjointsnes of the transfer matrices.
 
 ## Interval Refinement in DOLFINx
