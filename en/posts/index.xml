@@ -276,9 +276,9 @@ So a first approach might be to make use of these mappings for a first geometric
 Nevertheless, a more detailed examination reveals an inherent and irremediable defect in this setup.</p>
 <p>Let us consider an one dimensional example.</p>
 <p>$$
-V_\text{coarse} = P^1 ( \left{0, 1 \right})
+V_\text{coarse} = P^1 ( \left{0, 1 \right } )
 \quad \text{and} \quad
-V_\text{fine} = P^1 \left(\left{0, \frac{1}{2}, 1 \right} \right)
+V_\text{fine} = P^1 \left( \left{0, \frac{1}{2}, 1 \right} \right)
 $$</p>
 <p>with the non matching interpolations as restriction ( R : V_\text{fine} \to V_\text{coarse} ) and prolongation ( P : V_\text{coarse} \to V_\text{fine} ) operators, i.e.</p>
 <p>$$
