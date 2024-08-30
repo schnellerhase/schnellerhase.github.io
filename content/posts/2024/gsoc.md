@@ -53,9 +53,9 @@ Nevertheless, a more detailed examination reveals an inherent and irremediable d
 Let us consider an one dimensional example.
 
 $$
-V_\text{coarse} = P^1 ( \left\{0, 1 \right \} )
+V_\text{coarse} = P^1 ( \left\lbrace 0, 1 \right\rbrace )
 \quad \text{and} \quad
-V_\text{fine} = P^1 \left( \left\{0, \frac{1}{2}, 1 \right\} \right)
+V_\text{fine} = P^1 \left( \left\lbrace 0, \frac{1}{2}, 1 \right\rbrace \right)
 $$
 
 with the non matching interpolations as restriction \( R : V_\text{fine} \to V_\text{coarse} \) and prolongation \( P : V_\text{coarse} \to V_\text{fine} \) operators, i.e.
