@@ -85,7 +85,13 @@ For the example this is not the case.
 This breaks the properties of the multigrid operator - for example without duality we loose every mathematical ground of proving any properties of the multigrid operator matrix, such as for example the for convergence critical spectral radius.
 
 ### Testing Discrete Adjoint Operators
-TODO: story about adjointness of the operators vs adjointsnes of the transfer matrices.
+The subtleties around the adjoint property do need end with this.
+The requirement of the adjointness on the transfer operators and the implications on coefficients of the transferred functions preclude the possibility of recovering function scaling
+Consequently, it is not feasible to expect that a combination of interpolations between the two spaces will yield a suitable transfer operator combination..
+
+Furthermore, this suggests that meticulous attention must be paid to the criteria employed during the assessment of transfer operators, particularly with regard to the verification of implementations.
+To illustrate, the constant one function is not recovered after it has been restricted and prolonged with suitable operators.
+This is a consequence of our focus on the transfer of the residual, that is, an element of the dual space, not a function.
 
 ## Interval Refinement in DOLFINx
 
