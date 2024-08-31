@@ -229,10 +229,11 @@ The results demonstrated that the higher-quality code is also the faster one.
 
 ### Favor `exterior_facet_indices` over `locate_entities_boundary` for retrieving complete boundary [(Merged)](https://github.com/FEniCS/dolfinx/pull/3283)
 
-This pull request addressed the observation that when all boundary entities need to be selected in FEniCSx to construct a Dirichlet boundary condition on it, we must not filter these with a specific lambda as the default interface of `locate_entities_boundary` requires, but rather use the `exterior_facet_indices` which just gets all boundary facets.
-This triggered a (still ongoing) discussion on optional arguments in the DOLFINx code base and its implications to the exported python module.
+This pull request addresses the observation that when all boundary entities need to be selected in FEniCSx to construct a Dirichlet boundary condition on them, it is not necessary to filter these with a specific lambda as the default interface of `locate_entities_boundary` requires.
+Instead, the `exterior_facet_indices` can be used, which simply returns all boundary facets.
+This resulted in a (still ongoing) discussion on optional arguments in the DOLFINx code base and their implications for the exported Python module.
 
-### Some other strictly maintenance PR's
+### Strictly Maintenance PR's
 
 - DOLFINx - Fix ruff check [(Merged)](https://github.com/FEniCS/dolfinx/pull/3349)
 - febug - Fix installation with `dolfinx` main [(Merged)](https://github.com/nate-sime/febug/pull/13)
