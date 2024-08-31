@@ -149,14 +149,11 @@ These changes are part of another (open) [pull request](https://github.com/FEniC
 
 ## The Transfer Matrix
 
-Coming soon...
-
-- parallelization and ghost nodes
-- graph partitioning
+*Coming soon*: parallelization and ghost nodes, graph partitioning
 
 ## Geometric Twogrid Example
 
-Coming soon...
+*Coming soon...*
 
 ## General Code Contributions
 
