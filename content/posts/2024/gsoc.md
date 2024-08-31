@@ -220,11 +220,12 @@ Modernization to range based algorithms across all of DOLFINx, split up into sev
 
 ### Rework `radix_sort` [(Merged)](https://github.com/FEniCS/dolfinx/pull/3313)
 
-While updating from `std::sort` to `std::ranges::sort`, I noted, that the custom DOLFINx implementation of radix sort `radix_sort` (which is used for performance critical sorting of degree of freedom indices mostly), is not compatible with the ranges interface.
-In this pull request a range based `radix_sort` was introduced, which allows for 'equal' usage as `std::ranges::sort`.
-For this the operator based approach as in the ranges library was followed and a projection routine for the elements can be injected.
-This enabled for the removal of the previously also hand coded `argsort_radix` in DOLFINx, leaving only one `radix_sort` functionality left.
-Due to its performance relevance the changes where benchmarked [here](https://github.com/schnellerhase/dolfinx/pull/24) and showed that the higher quality code is also the faster one.
+During the process of updating from `std::sort` to `std::ranges::sort`, it was observed that the custom DOLFINx implementation of radix sort `radix_sort` (which is utilized for performance-critical sorting of degree of freedom indices primarily) is not compatible with the ranges interface.
+This pull request introduces a range-based radix_sort, which offers the same functionality as `std::ranges::sort`.
+To achieve this, the operator-based approach used in the ranges library was followed, and a projection routine for the elements can be added.
+This allowed for the removal of the previously hand-coded `argsort_radix` in DOLFINx, leaving only one instance of the `radix_sort` functionality.
+Given its performance-critical nature, the changes were benchmarked [here](https://github.com/schnellerhase/dolfinx/pull/24).
+The results demonstrated that the higher-quality code is also the faster one.
 
 ### Favor `exterior_facet_indices` over `locate_entities_boundary` for retrieving complete boundary [(Merged)](https://github.com/FEniCS/dolfinx/pull/3283)
 
