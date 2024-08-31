@@ -4,6 +4,8 @@ date: 2024-08-30T12:00:00+02:00
 draft: false
 toc: true
 math: true
+aliases:
+- /en/posts/2024/gsoc/
 ---
 
 ## Intro
