@@ -3,7 +3,7 @@
 baseURL = 'https://schnellerhase.github.io/'
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
-theme = ["hermit-v2", "hugo-embed-pdf-shortcode"]
+theme = ["papermod", "hugo-embed-pdf-shortcode"]
 
 # Configures hugo-embed-pdf-shortcode
 enableInlineShortcodes = true
