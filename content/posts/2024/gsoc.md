@@ -3,7 +3,7 @@ title: "Google Summer of Code 2024 - Multigrid for FEniCSx"
 date: 2024-08-30T12:00:00+02:00
 draft: false
 toc: true
-mathjax: true
+math: true
 ---
 
 ## Intro
