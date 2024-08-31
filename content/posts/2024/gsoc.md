@@ -46,7 +46,7 @@ This should be a relatively straightforward process to implement once the geomet
 
 A first idea to approach the implementation of a geometric multigrid with the hope of an easy to attain proof of concept, came with the availability of the non-matching mesh interpolation routine of DOLFINx.
 This routine implements a general interpolation operation between non matching meshes, and thus also non-matching, function spaces in general.
-So we have already the implementation at hand to produce for two different finite element approximation spaces \( V_\text{coarse} \) and \( V_\text{fine} \) mappings
+So we have already the implementation at hand to produce for two different finite element approximation spaces $V_\text{coarse}$ and $V_\text{fine}$ mappings
 So a first approach might be to make use of these mappings for a first geometric multigrid implementation and refine it after.
 Nevertheless, a more detailed examination reveals an inherent and irremediable defect in this setup.
 
@@ -58,7 +58,7 @@ V_\text{coarse} = P^1 ( \left\lbrace 0, 1 \right\rbrace )
 V_\text{fine} = P^1 \left( \left\lbrace 0, \frac{1}{2}, 1 \right\rbrace \right)
 $$
 
-with the non matching interpolations as restriction \( R : V_\text{fine} \to V_\text{coarse} \) and prolongation \( P : V_\text{coarse} \to V_\text{fine} \) operators, i.e.
+with the non matching interpolations as restriction $R : V_\text{fine} \to V_\text{coarse}$ and prolongation $P : V_\text{coarse} \to V_\text{fine}$ operators, i.e.
 
 $$
 P = \begin{bmatrix}
@@ -73,7 +73,7 @@ R = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-Especially the map \( P \) is injective and \( R \) is surjective, which fits our expectations.
+Especially the map $P$ is injective and $R$ is surjective, which fits our expectations.
 But we loose one very important property that we require for transfer operators.
 The restriction should be the adjoint of the prolongation, i.e. (for matrices)
 
@@ -104,8 +104,8 @@ Given a mesh of three vertices (bold) and two cells (or equivalently edges)
 
 **0** --- 0 --- **1** --- 1 --- **2** --- 2 --- **3**
 
-we would like to perform a refinement on a set of marked edges \(M\).
-Let us consider the uniform refinement case first, so we mark all edges for refinement, i.e. \( M=\{ 0, 1, 2 \} \).
+we would like to perform a refinement on a set of marked edges $M$.
+Let us consider the uniform refinement case first, so we mark all edges for refinement, i.e. $M=\\{ 0, 1, 2 \\}$.
 While in higher dimensions mesh refinement offers a great number of applicable refinement schemes for refining an edge marked mesh, in one dimension the necessary operation is unique.
 Every marked edge should be split, i.e. a new vertex in the center is to be introduced and the former edge split into two new finer/shorter ones.
 For the former mesh we thus expect the fine mesh
