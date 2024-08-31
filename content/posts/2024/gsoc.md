@@ -190,9 +190,9 @@ consteval bool has_flag()
 
 ### DOLFINx - Some updates for mesh generation [(Open)](https://github.com/FEniCS/dolfinx/pull/3275)
 
-Whilst reading up the mesh related data structures in DOLFINx for the project, I notices quite a few sub-optimal code paths in the generation code of meshes.
-In this PR these were addressed, mostly consisting of modernizations, simplifications and some additional testing.
-The modernizations also made use of the previously (in the FEniCS Project) unused [ranges library](https://en.cppreference.com/w/cpp/ranges), this was the trigger for looking into the following 12 pull requests.
+While researching mesh-related data structures in DOLFINx for the project, I discovered several suboptimal code paths in the mesh generation code.
+This PR addresses these issues, primarily through modernization, simplification, and additional testing.
+The modernizations also made use of the previously (in the FEniCS Project) unused [ranges library](https://en.cppreference.com/w/cpp/ranges), this was the trigger for looking into further use cases of it, resulting in the following 12 pull requests.
 
 ### Basix - Update to std::ranges usage [(Merged)](https://github.com/FEniCS/basix/pull/837)
 
