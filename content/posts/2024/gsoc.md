@@ -5,7 +5,7 @@ draft: false
 toc: true
 math: true
 aliases:
-- /en/posts/2024/gsoc/
+  - /en/posts/2024/gsoc/
 ---
 
 ## Intro
@@ -87,6 +87,7 @@ For the example this is not the case.
 This breaks the properties of the multigrid operator - for example without duality we loose every mathematical ground of proving any properties of the multigrid operator matrix, such as for example the for convergence critical spectral radius.
 
 ### Testing Discrete Adjoint Operators
+
 The subtleties around the adjoint property do need end with this.
 The requirement of the adjointness on the transfer operators and the implications on coefficients of the transferred functions preclude the possibility of recovering function scaling
 Consequently, it is not feasible to expect that a combination of interpolations between the two spaces will yield a suitable transfer operator combination..
@@ -119,7 +120,7 @@ At first glance, this seems like a very straightforward operation to implement, 
 For the debugging of the code, especially in parallel, looking at visualizations of the meshes before and after refinement was a crucial step.
 This was easy to do thanks to the handy [febug](https://github.com/nate-sime/febug) tool, which makes visualizing different mesh entities straightforward and easy.
 
-*Coming soon*: detailed exaplanation of the algorithm introduced in [PR 3314](https://github.com/FEniCS/dolfinx/pull/3314) including data stored in parallel, algorithm employed and output (parent cells)
+_Coming soon_: detailed exaplanation of the algorithm introduced in [PR 3314](https://github.com/FEniCS/dolfinx/pull/3314) including data stored in parallel, algorithm employed and output (parent cells)
 
 ### A Story on Assertions in Compiled Python Modules
 
