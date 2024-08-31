@@ -149,25 +149,24 @@ These changes are part of another (open) [pull request](https://github.com/FEniC
 
 ## The Transfer Matrix
 
-*Coming soon*: parallelization and ghost nodes, graph partitioning
+_Coming soon_: parallelization and ghost nodes, graph partitioning
 
 ## Geometric Twogrid Example
 
-*Coming soon...*
+_Coming soon..._
 
 ## General Code Contributions
 
-While the main project focused on the implementation of a geometric multigrid a lot of incidental and supportive changes where contributed to different repositories as well.
-Split across multiple repositories, we want to shortly outline the highlights of these in chronological order.
+While the primary objective was the implementation of a geometric multigrid, a number of additional changes were made to different repositories. These changes are outlined below in chronological order.
 
-### DOLFINx - Introduce aliasing for mdspan [(Closed)](https://github.com/FEniCS/dolfinx/pull/3116)
+### DOLFINx - Introduce Aliasing for `mdspan` [(Closed)](https://github.com/FEniCS/dolfinx/pull/3116)
 
-The `mdspan` library in use with the FEniCS Project is based on the Kokkos [refrence implementation](https://github.com/kokkos/mdspan).
-To facilitate the namespace switching depending on compiler support of either `std::experimental::mdspan` or `std::mdspan` or none of the above the implementation introduces the macro `MDSPAN_IMPL_STANDARD_NAMESPACE`.
-This causes bloated calls, i.e. every time it is necessary to write out `MDSPAN_IMPL_STANDARD_NAMESPACE::mdspan`.
-In the pull request this was suggested to be wrapped into a custom hiding layer, i.e. allowing for access via `dolfinx::common::mdspan`, no matter to what this dispatches to.
-This would also allow the code to remain untouched in the future if one updates to the STL versions.
-After a discussion the changes were rejected, due to it being considered an approximation of a third-party library.
+The `mdspan` library utilized by the FEniCS Project is based on the Kokkos [reference implementation](https://github.com/kokkos/mdspan).
+To streamline the namespace switching process, depending on compiler support for either `std::experimental::mdspan` or `std::mdspan`, or no support at all the implementation introduces the macro `MDSPAN_IMPL_STANDARD_NAMESPACE`.
+This results in unnecessarily lengthy calls, as it requires the repeated writing out of `MDSPAN_IMPL_STANDARD_NAMESPACE::mdspan` each time `mdspan` is used
+In the pull request, the suggestion was to wrap this into a custom hiding layer, allowing for access via `dolfinx::common::mdspan`, regardless of what this dispatches to.
+This approach would also enable the code to remain unchanged in the event of an STL version update.
+Following a discussion, the proposed changes were rejected on the grounds that they constituted an approximation of a third-party library.
 
 ### Basix - Update mdspan [(Merged)](https://github.com/FEniCS/basix/pull/840)
 
@@ -175,8 +174,8 @@ Update to new Kokkos single header `mdspan` changes.
 
 ### DOLFINx - Make compile time options compile time constants [(Merged)](https://github.com/FEniCS/dolfinx/pull/3246)
 
-Previously in translation units wrapped transformation of compiler flag was moved to header files in combination with the usage of `consteval` to make them truly compile time constants.
-The idiom of the changes was for a given (`cmake`) flag `FLAG` is demonstrated below.
+Previously, the transformation of compiler flags in translation units was moved to header files in combination with the usage of `consteval`, which effectively made them true compile time constants.
+The following example illustrates the idiom of the changes for a given CMake flag.
 
 ```cpp
 consteval bool has_flag()
