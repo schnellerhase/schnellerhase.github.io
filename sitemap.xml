@@ -1,1 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>https://schnellerhase.github.io/sitemap.xml</loc><lastmod>2024-08-30T17:35:04+02:00</lastmod></sitemap></sitemapindex>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://schnellerhase.github.io/posts/2024/gsoc/</loc>
+    <lastmod>2024-08-30T12:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://schnellerhase.github.io/posts/</loc>
+    <lastmod>2024-08-30T12:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://schnellerhase.github.io/</loc>
+    <lastmod>2024-08-30T12:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://schnellerhase.github.io/about/</loc>
+    <lastmod>2024-08-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://schnellerhase.github.io/categories/</loc>
+  </url><url>
+    <loc>https://schnellerhase.github.io/series/</loc>
+  </url><url>
+    <loc>https://schnellerhase.github.io/tags/</loc>
+  </url>
+</urlset>

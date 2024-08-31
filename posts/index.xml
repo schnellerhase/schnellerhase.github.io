@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on schnellerhase</title>
+    <link>https://schnellerhase.github.io/posts/</link>
+    <description>Recent content in Posts on schnellerhase</description>
+    <generator>Hugo -- 0.119.0</generator>
+    <language>en</language>
+    <copyright>CC BY-NC-SA 4.0</copyright>
+    <lastBuildDate>Fri, 30 Aug 2024 12:00:00 +0200</lastBuildDate>
+    <atom:link href="https://schnellerhase.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Google Summer of Code 2024 - Multigrid for FEniCSx</title>
+      <link>https://schnellerhase.github.io/posts/2024/gsoc/</link>
+      <pubDate>Fri, 30 Aug 2024 12:00:00 +0200</pubDate>
+      <guid>https://schnellerhase.github.io/posts/2024/gsoc/</guid>
+      <description>Intro This is the report on the Google Summer of Code 2024 project, entitled &amp;lsquo;Multigrid for FEniCSx&amp;rsquo;, under the auspices of the NumFOCUS organization, on the FEniCS Project, which is (since 2016) fiscally supported by NumFOCUS.
+Under the supervision of Jack S. Hale (Research Scientist, University of Luxembourg), Chris Richardson (Research Software Engineer, University of Cambridge) and Joseph Dean (Research Scientist, University of Cambridge) the Google Summer of Code provided an opportunity for me to contribute to the FEniCS project and get to know open source software development efforts for high-performance computing applications.</description>
+    </item>
+  </channel>
+</rss>
