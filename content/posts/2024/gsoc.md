@@ -151,6 +151,38 @@ These changes are part of another (open) [pull request](https://github.com/FEniC
 
 _Coming soon_: parallelization and ghost nodes, graph partitioning
 
+### Debugging a Parallel CSR Matrix
+
+Compressed Sparse Row Major (CSR) matrices are a great data format for efficient computations and FEM matrix assemblies.
+However, the data format is not easy to debug or visualize.
+For debugging purposes the DOLFINx CSR matrix implementation has a `to_dense` functionality that translates the CSR format into a dense representation of the matrix for debugging purposes.
+However, this functionality only really supported sequential calls, and dropped quite a bit of information in parallel runs.
+Let us recap what the functionality used to provide and present its new functionality.
+
+Given two parallel partitions $I = (i_0, \dots, i_n)$ and $J = (j_0, \dots, j_n)$ associated with the row and column distribution across the ranks, i.e. the process $p$, for some $0 \leq p < n$, owns rows $[i_p, i_{p+1})$ and columns $[j_p, j_{p+1})$.
+The `to_dense` function produced the dense subblock of the global matrix $A = (a_{ij})_{0\leq i < i_n,\ 0 \leq j \leq j_n}$ which was strictly global, i.e. the submatrix
+
+$$
+\begin{bmatrix}
+  a_{i_p, j_p} & \dots & a_{i_p, j_{p+1}} \newline
+  \vdots & \ddots & \vdots \newline
+  a_{i_{p+1}, j_p} & \dots & a_{i_{p+1}, j_{p+1}}
+\end{bmatrix}.
+$$
+
+However, this functionality drops from the dense representation all entries that are part of the local entries, and thus available on the given process rank $p$, that are in columns not owned by the current process $p$.
+After the proposed changes `to_dense` now returns a dense representation of all locally owned rows (over all global columns), i.e. the submatrix we get on process $p$ is then
+
+$$
+\begin{bmatrix}
+  a_{i_p, 0} & \dots & a_{i_p, j_n} \newline
+  \vdots & \ddots & \vdots \newline
+  a_{i_{p+1}, 0} & \dots & a_{i_{p+1}, j_n}
+\end{bmatrix}.
+$$
+
+These changes are part of a (open) [pull request](https://github.com/FEniCS/dolfinx/pull/3354) and are required for debugging and testing the transfer matrix implementation alike.
+
 ## Geometric Twogrid Example
 
 _Coming soon..._
