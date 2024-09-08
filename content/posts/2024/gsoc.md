@@ -181,7 +181,7 @@ $$
 \end{bmatrix}.
 $$
 
-These changes are part of a (open) [pull request](https://github.com/FEniCS/dolfinx/pull/3354) and are required for debugging and testing the transfer matrix implementation alike.
+These changes are part of a (merged) [pull request](https://github.com/FEniCS/dolfinx/pull/3354) and are required for debugging and testing the transfer matrix implementation alike.
 
 ## Geometric Twogrid Example
 
