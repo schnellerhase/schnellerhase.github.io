@@ -4,7 +4,7 @@
     <title>schnellerhase</title>
     <link>https://schnellerhase.github.io/</link>
     <description>Recent content on schnellerhase</description>
-    <generator>Hugo -- 0.143.1</generator>
+    <generator>Hugo -- 0.125.7</generator>
     <language>en</language>
     <copyright>CC BY-NC-SA 4.0</copyright>
     <lastBuildDate>Fri, 30 Aug 2024 12:00:00 +0200</lastBuildDate>
@@ -14,16 +14,15 @@
       <link>https://schnellerhase.github.io/posts/2024/gsoc/</link>
       <pubDate>Fri, 30 Aug 2024 12:00:00 +0200</pubDate>
       <guid>https://schnellerhase.github.io/posts/2024/gsoc/</guid>
-      <description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
-&lt;p&gt;This is the report on the Google Summer of Code 2024 project, entitled &lt;a href=&#34;https://summerofcode.withgoogle.com/programs/2024/projects/YhEwl8iB&#34;&gt;&amp;lsquo;Multigrid for FEniCSx&amp;rsquo;&lt;/a&gt;, under the auspices of the &lt;a href=&#34;https://numfocus.org/&#34;&gt;NumFOCUS&lt;/a&gt; organization, on the &lt;a href=&#34;https://fenicsproject.org/&#34;&gt;FEniCS Project&lt;/a&gt;, which is (since 2016) fiscally supported by NumFOCUS.&lt;/p&gt;
-&lt;p&gt;Under the supervision of &lt;a href=&#34;https://www.jackhale.co.uk/&#34;&gt;Jack S. Hale&lt;/a&gt; (Research Scientist, University of Luxembourg), &lt;a href=&#34;https://www.ieef.cam.ac.uk/user/cnr12&#34;&gt;Chris Richardson&lt;/a&gt; (Research Software Engineer, University of Cambridge) and &lt;a href=&#34;https://www.eng.cam.ac.uk/profiles/jpd62&#34;&gt;Joseph Dean&lt;/a&gt; (Research Scientist, University of Cambridge) the Google Summer of Code provided an opportunity for me to contribute to the FEniCS project and get to know open source software development efforts for high-performance computing applications.&lt;/p&gt;</description>
+      <description>Intro This is the report on the Google Summer of Code 2024 project, entitled &amp;lsquo;Multigrid for FEniCSx&amp;rsquo;, under the auspices of the NumFOCUS organization, on the FEniCS Project, which is (since 2016) fiscally supported by NumFOCUS.
+Under the supervision of Jack S. Hale (Research Scientist, University of Luxembourg), Chris Richardson (Research Software Engineer, University of Cambridge) and Joseph Dean (Research Scientist, University of Cambridge) the Google Summer of Code provided an opportunity for me to contribute to the FEniCS project and get to know open source software development efforts for high-performance computing applications.</description>
     </item>
     <item>
       <title>About</title>
       <link>https://schnellerhase.github.io/about/</link>
       <pubDate>Fri, 23 Aug 2024 00:00:00 +0000</pubDate>
       <guid>https://schnellerhase.github.io/about/</guid>
-      <description>&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;</description>
+      <description>Coming soon&amp;hellip;</description>
     </item>
   </channel>
 </rss>
