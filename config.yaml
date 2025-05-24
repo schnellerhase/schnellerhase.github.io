@@ -3,7 +3,8 @@
 baseURL: "https://schnellerhase.github.io/"
 title: "schnellerhase"
 copyright: "© [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)"
-paginate: 5
+pagination:
+  pagerSize: 5
 theme: [papermod, hugo-embed-pdf-shortcode]
 
 enableInlineShortcodes: true
